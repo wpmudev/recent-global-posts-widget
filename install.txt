@@ -1,0 +1,13 @@
+Plugin Name: Recent Global Posts Widget
+Author: Andrew Billits
+
+Files:
+----------------------------------------------------------------------
+widget-recent-global-posts.php - goes in /wp-content/mu-plugins
+
+Instructions:
+----------------------------------------------------------------------
+1) Place the files in the specified directories
+
+Please note that this widget requires the Post Indexer plugin to be installed:
+http://premium.wpmudev.org/project/post-indexer
