@@ -3,12 +3,12 @@
 Plugin Name: Recent Posts Widget
 Description:
 Author: Andrew Billits (Incsub)
-Version: 1.0.1
+Version: 2.0
 Author URI:
 WDP ID: 66
 */
 
-/* 
+/*
 Copyright 2007-2009 Incsub (http://incsub.com)
 
 This program is free software; you can redistribute it and/or modify
@@ -25,6 +25,17 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/* -------------------- Update Notifications Notice -------------------- */
+if ( !function_exists( 'wdp_un_check' ) ) {
+  add_action( 'admin_notices', 'wdp_un_check', 5 );
+  add_action( 'network_admin_notices', 'wdp_un_check', 5 );
+  function wdp_un_check() {
+    if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
+      echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
+  }
+}
+/* --------------------------------------------------------------------- */
+
 //------------------------------------------------------------------------//
 //---Config---------------------------------------------------------------//
 //------------------------------------------------------------------------//
@@ -32,13 +43,23 @@ $recent_global_posts_widget_main_blog_only = 'yes'; //Either 'yes' or 'no'
 //------------------------------------------------------------------------//
 //---Hook-----------------------------------------------------------------//
 //------------------------------------------------------------------------//
-
+add_action( 'plugins_loaded', 'widget_recent_global_posts_internationalisation');
 //------------------------------------------------------------------------//
 //---Functions------------------------------------------------------------//
 //------------------------------------------------------------------------//
+function widget_recent_global_posts_internationalisation() {
+	// Load the text-domain
+	$locale = apply_filters( 'rgpwidget_locale', get_locale() );
+	$mofile = dirname(__FILE__) . "/languages/rgpwidget-$locale.mo";
+
+	if ( file_exists( $mofile ) )
+		load_textdomain( 'rgpwidget', $mofile );
+}
+
+
 function widget_recent_global_posts_init() {
 	global $wpdb, $recent_global_posts_widget_main_blog_only;
-		
+
 	// Check for the required API functions
 	if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
 		return;
@@ -62,19 +83,19 @@ function widget_recent_global_posts_init() {
 		}
 	?>
 				<div style="text-align:left">
-                
-				<label for="recent-global-posts-title" style="line-height:35px;display:block;"><?php _e('Title', 'widgets'); ?>:<br />
+
+				<label for="recent-global-posts-title" style="line-height:35px;display:block;"><?php _e('Title', 'rgpwidget'); ?>:<br />
                 <input class="widefat" id="recent-global-posts-title" name="recent-global-posts-title" value="<?php echo $options['recent-global-posts-title']; ?>" type="text" style="width:95%;">
                 </select>
                 </label>
-				<label for="recent-global-posts-display" style="line-height:35px;display:block;"><?php _e('Display', 'widgets'); ?>:
+				<label for="recent-global-posts-display" style="line-height:35px;display:block;"><?php _e('Display', 'rgpwidget'); ?>:
                 <select name="recent-global-posts-display" id="recent-global-posts-display" style="width:95%;">
-                <option value="title_content" <?php if ($options['recent-global-posts-display'] == 'title_content'){ echo 'selected="selected"'; } ?> ><?php _e('Title + Content'); ?></option>
-                <option value="title" <?php if ($options['recent-global-posts-display'] == 'title'){ echo 'selected="selected"'; } ?> ><?php _e('Title Only'); ?></option>
-                <option value="content" <?php if ($options['recent-global-posts-display'] == 'content'){ echo 'selected="selected"'; } ?> ><?php _e('Content Only'); ?></option>
+                <option value="title_content" <?php if ($options['recent-global-posts-display'] == 'title_content'){ echo 'selected="selected"'; } ?> ><?php _e('Title + Content', 'rgpwidget'); ?></option>
+                <option value="title" <?php if ($options['recent-global-posts-display'] == 'title'){ echo 'selected="selected"'; } ?> ><?php _e('Title Only', 'rgpwidget'); ?></option>
+                <option value="content" <?php if ($options['recent-global-posts-display'] == 'content'){ echo 'selected="selected"'; } ?> ><?php _e('Content Only', 'rgpwidget'); ?></option>
                 </select>
                 </label>
-				<label for="recent-global-posts-number" style="line-height:35px;display:block;"><?php _e('Number', 'widgets'); ?>:<br />
+				<label for="recent-global-posts-number" style="line-height:35px;display:block;"><?php _e('Number', 'rgpwidget'); ?>:<br />
                 <select name="recent-global-posts-number" id="recent-global-posts-number" style="width:95%;">
                 <?php
 					if ( empty($options['recent-global-posts-number']) ) {
@@ -89,7 +110,7 @@ function widget_recent_global_posts_init() {
                 ?>
                 </select>
                 </label>
-				<label for="recent-global-posts-title-characters" style="line-height:35px;display:block;"><?php _e('Title Characters', 'widgets'); ?>:<br />
+				<label for="recent-global-posts-title-characters" style="line-height:35px;display:block;"><?php _e('Title Characters', 'rgpwidget'); ?>:<br />
                 <select name="recent-global-posts-title-characters" id="recent-global-posts-title-characters" style="width:95%;">
                 <?php
 					if ( empty($options['recent-global-posts-title-characters']) ) {
@@ -104,7 +125,7 @@ function widget_recent_global_posts_init() {
                 ?>
                 </select>
                 </label>
-				<label for="recent-global-posts-content-characters" style="line-height:35px;display:block;"><?php _e('Content Characters', 'widgets'); ?>:<br />
+				<label for="recent-global-posts-content-characters" style="line-height:35px;display:block;"><?php _e('Content Characters', 'rgpwidget'); ?>:<br />
                 <select name="recent-global-posts-content-characters" id="recent-global-posts-content-characters" style="width:95%;">
                 <?php
 					if ( empty($options['recent-global-posts-content-characters']) ) {
@@ -119,19 +140,19 @@ function widget_recent_global_posts_init() {
                 ?>
                 </select>
                 </label>
-				<label for="recent-global-posts-avatars" style="line-height:35px;display:block;"><?php _e('Avatars', 'widgets'); ?>:<br />
+				<label for="recent-global-posts-avatars" style="line-height:35px;display:block;"><?php _e('Avatars', 'rgpwidget'); ?>:<br />
                 <select name="recent-global-posts-avatars" id="recent-global-posts-avatars" style="width:95%;">
-                <option value="show" <?php if ($options['recent-global-posts-avatars'] == 'show'){ echo 'selected="selected"'; } ?> ><?php _e('Show'); ?></option>
-                <option value="hide" <?php if ($options['recent-global-posts-avatars'] == 'hide'){ echo 'selected="selected"'; } ?> ><?php _e('Hide'); ?></option>
+                <option value="show" <?php if ($options['recent-global-posts-avatars'] == 'show'){ echo 'selected="selected"'; } ?> ><?php _e('Show', 'rgpwidget'); ?></option>
+                <option value="hide" <?php if ($options['recent-global-posts-avatars'] == 'hide'){ echo 'selected="selected"'; } ?> ><?php _e('Hide', 'rgpwidget'); ?></option>
                 </select>
                 </label>
-				<label for="recent-global-posts-avatar-size" style="line-height:35px;display:block;"><?php _e('Avatar Size', 'widgets'); ?>:<br />
+				<label for="recent-global-posts-avatar-size" style="line-height:35px;display:block;"><?php _e('Avatar Size', 'rgpwidget'); ?>:<br />
                 <select name="recent-global-posts-avatar-size" id="recent-global-posts-avatar-size" style="width:95%;">
-                <option value="16" <?php if ($options['recent-global-posts-avatar-size'] == '16'){ echo 'selected="selected"'; } ?> ><?php _e('16px'); ?></option>
-                <option value="32" <?php if ($options['recent-global-posts-avatar-size'] == '32'){ echo 'selected="selected"'; } ?> ><?php _e('32px'); ?></option>
-                <option value="48" <?php if ($options['recent-global-posts-avatar-size'] == '48'){ echo 'selected="selected"'; } ?> ><?php _e('48px'); ?></option>
-                <option value="96" <?php if ($options['recent-global-posts-avatar-size'] == '96'){ echo 'selected="selected"'; } ?> ><?php _e('96px'); ?></option>
-                <option value="128" <?php if ($options['recent-global-posts-avatar-size'] == '128'){ echo 'selected="selected"'; } ?> ><?php _e('128px'); ?></option>
+                <option value="16" <?php if ($options['recent-global-posts-avatar-size'] == '16'){ echo 'selected="selected"'; } ?> ><?php _e('16px', 'rgpwidget'); ?></option>
+                <option value="32" <?php if ($options['recent-global-posts-avatar-size'] == '32'){ echo 'selected="selected"'; } ?> ><?php _e('32px', 'rgpwidget'); ?></option>
+                <option value="48" <?php if ($options['recent-global-posts-avatar-size'] == '48'){ echo 'selected="selected"'; } ?> ><?php _e('48px', 'rgpwidget'); ?></option>
+                <option value="96" <?php if ($options['recent-global-posts-avatar-size'] == '96'){ echo 'selected="selected"'; } ?> ><?php _e('96px', 'rgpwidget'); ?></option>
+                <option value="128" <?php if ($options['recent-global-posts-avatar-size'] == '128'){ echo 'selected="selected"'; } ?> ><?php _e('128px', 'rgpwidget'); ?></option>
                 </select>
                 </label>
 				<input type="hidden" name="recent-global-posts-submit" id="recent-global-posts-submit" value="1" />
@@ -187,12 +208,12 @@ function widget_recent_global_posts_init() {
 	// Tell Dynamic Sidebar about our new widget and its control
 	if ( $recent_global_posts_widget_main_blog_only == 'yes' ) {
 		if ( $wpdb->blogid == 1 ) {
-			register_sidebar_widget(array(__('Recent Global Posts'), 'widgets'), 'widget_recent_global_posts');
-			register_widget_control(array(__('Recent Global Posts'), 'widgets'), 'widget_recent_global_posts_control');
+			register_sidebar_widget(array(__('Recent Global Posts', 'rgpwidget'), 'widgets'), 'widget_recent_global_posts');
+			register_widget_control(array(__('Recent Global Posts', 'rgpwidget'), 'widgets'), 'widget_recent_global_posts_control');
 		}
 	} else {
-		register_sidebar_widget(array(__('Recent Global Posts'), 'widgets'), 'widget_recent_global_posts');
-		register_widget_control(array(__('Recent Global Posts'), 'widgets'), 'widget_recent_global_posts_control');
+		register_sidebar_widget(array(__('Recent Global Posts', 'rgpwidget'), 'widgets'), 'widget_recent_global_posts');
+		register_widget_control(array(__('Recent Global Posts', 'rgpwidget'), 'widgets'), 'widget_recent_global_posts_control');
 	}
 }
 
