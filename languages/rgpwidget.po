@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Recent Global Posts Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-10 02:06+0100\n"
-"PO-Revision-Date: 2011-01-10 02:06+0100\n"
+"POT-Creation-Date: 2011-05-10 20:40+0100\n"
+"PO-Revision-Date: 2011-05-10 20:40+0100\n"
 "Last-Translator: Barry <barry@mapinated.com>\n"
 "Language-Team: Incsub <barry@incsub.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,82 +17,88 @@ msgstr ""
 msgid "Please install the latest version of <a href=\"http://premium.wpmudev.org/project/update-notifications/\" title=\"Download Now &raquo;\">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href=\"http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/\">More information &raquo;</a>"
 msgstr ""
 
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:87
-msgid "Title"
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:57
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:59
+msgid "Recent Global Posts"
 msgstr ""
 
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:91
-msgid "Display"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:93
-msgid "Title + Content"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:94
-msgid "Title Only"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:95
-msgid "Content Only"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:98
-msgid "Number"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:113
-msgid "Title Characters"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:128
-msgid "Content Characters"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:143
-msgid "Avatars"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:145
-msgid "Show"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:146
-msgid "Hide"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:149
-msgid "Avatar Size"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:151
-msgid "16px"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:152
-msgid "32px"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:153
-msgid "48px"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:154
-msgid "96px"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:155
-msgid "128px"
-msgstr ""
-
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:197
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:115
 msgid "More"
 msgstr ""
 
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:211
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:212
-#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:215
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:172
+msgid "Title"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:176
+msgid "Display"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:178
+msgid "Title + Content"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:179
+msgid "Title Only"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:180
+msgid "Content Only"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:184
+msgid "Number"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:200
+msgid "Title Characters"
+msgstr ""
+
 #: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:216
-msgid "Recent Global Posts"
+msgid "Content Characters"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:232
+msgid "Avatars"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:234
+msgid "Show"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:235
+msgid "Hide"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:239
+msgid "Avatar Size"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:241
+msgid "16px"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:242
+msgid "32px"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:243
+msgid "48px"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:244
+msgid "96px"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:245
+msgid "128px"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:254
+msgid "Post Type"
+msgstr ""
+
+#: /Users/barrygetty/Work/wordpress/plugins/recent-global-posts-widget/widget-recent-global-posts.php:265
+msgid "post"
 msgstr ""
 

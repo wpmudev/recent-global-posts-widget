@@ -73,9 +73,9 @@ class widget_recent_global_posts extends WP_Widget {
 							'recentglobalpostscontentcharacters'	=>	'',
 							'recentglobalpostsavatars'	=>	'',
 							'recentglobalpostsavatarsize'	=>	'',
+							'recentglobalpoststype'	=>	'post',
 							'count' => 10,
-							'username' => 'wordpress',
-							'post_type' => 'post'
+							'username' => 'wordpress'
 						);
 
 		foreach($defaults as $key => $value) {
@@ -94,24 +94,24 @@ class widget_recent_global_posts extends WP_Widget {
             <br />
             <?php
 				//=================================================//
-				$query = "SELECT * FROM " . $wpdb->base_prefix . "site_posts WHERE blog_public = '1' AND post_type ='" . $post_type . "' ORDER BY post_published_stamp DESC LIMIT " . $options['recent-global-posts-number'];
+				$query = "SELECT * FROM " . $wpdb->base_prefix . "site_posts WHERE blog_public = '1' AND post_type ='" . $recentglobalpoststype . "' ORDER BY post_published_stamp DESC LIMIT " . $recentglobalpostsnumber;
 				$posts = $wpdb->get_results( $query, ARRAY_A );
 				if (count($posts) > 0){
 					echo '<ul>';
 					foreach ($posts as $post){
 						echo '<li>';
-						if ( $options['recent-global-posts-avatars'] == 'show' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . get_avatar( $post['post_author'], $options['recent-global-posts-avatar-size'], '' ) . '</a>';
+						if ( $recentglobalpostsavatars == 'show' ) {
+							echo '<a href="' . $post['post_permalink'] . '">' . get_avatar( $post['post_author'], $recentglobalpostsavatarsize, '' ) . '</a>';
 							echo ' ';
 						}
-						if ( $options['recent-global-posts-display'] == 'title_content' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $options['recent-global-posts-title-characters'] ) . '</a>';
+						if ( $recentglobalpostsdisplay == 'title_content' ) {
+							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $recentglobalpoststitlecharacters ) . '</a>';
 							echo '<br />';
-							echo substr( strip_tags( $post['post_content'] ), 0, $options['recent-global-posts-content-characters'] );
-						} else if ( $options['recent-global-posts-display'] == 'title' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $options['recent-global-posts-title-characters'] ) . '</a>';
-						} else if ( $options['recent-global-posts-display'] == 'content' ) {
-							echo substr( strip_tags( $post['post_content'] ), 0, $options['recent-global-posts-content-characters'] );
+							echo substr( strip_tags( $post['post_content'] ), 0, $recentglobalpostscontentcharacters );
+						} else if ( $recentglobalpostsdisplay == 'title' ) {
+							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $recentglobalpoststitlecharacters ) . '</a>';
+						} else if ( $recentglobalpostsdisplay == 'content' ) {
+							echo substr( strip_tags( $post['post_content'] ), 0, $recentglobalpostscontentcharacters );
 							echo ' (<a href="' . $post['post_permalink'] . '">' . __('More') . '</a>)';
 						}
 						echo '</li>';
@@ -120,54 +120,7 @@ class widget_recent_global_posts extends WP_Widget {
 				}
 				//=================================================//
 			?>
-		<?php echo $after_widget; ?>
-<?php
-
-		extract( $args );
-
-		// build the check array
-		$defaults = array(
-			'title' 		=> '',
-			'content' 		=> '',
-			'level'		 	=> 'none'
-		);
-
-		foreach($defaults as $key => $value) {
-			if(isset($instance[$key])) {
-				$defaults[$key] = $instance[$key];
-			}
-		}
-
-		extract($defaults);
-
-		$show = false;
-
-		switch($level) {
-
-			case 'none':	if(!is_user_logged_in() || !current_user_is_member()) {
-								$show = true;
-							}
-							break;
-
-			default:		if(current_user_on_level($level)) {
-								$show = true;
-							}
-							break;
-
-		}
-
-		if($show) {
-			echo $before_widget;
-			$title = apply_filters('widget_title', $title );
-
-			if ( !empty($title) ) {
-				echo $before_title . $title . $after_title;
-			}
-
-			echo apply_filters('the_content', $content);
-
-			echo $after_widget;
-		}
+		<?php echo $after_widget;
 
 	}
 
@@ -180,6 +133,7 @@ class widget_recent_global_posts extends WP_Widget {
 							'recentglobalpostscontentcharacters'	=>	'',
 							'recentglobalpostsavatars'	=>	'',
 							'recentglobalpostsavatarsize'	=>	'',
+							'recentglobalpoststype'	=>	'post',
 							'count' => 10,
 							'username' => 'wordpress',
 							'post_type' => 'post'
@@ -202,6 +156,7 @@ class widget_recent_global_posts extends WP_Widget {
 							'recentglobalpostscontentcharacters'	=>	'',
 							'recentglobalpostsavatars'	=>	'',
 							'recentglobalpostsavatarsize'	=>	'',
+							'recentglobalpoststype'	=>	'post',
 							'count' => 10,
 							'username' => 'wordpress',
 							'post_type' => 'post'
@@ -280,6 +235,7 @@ class widget_recent_global_posts extends WP_Widget {
 	                <option value="hide" <?php selected( $instance['recentglobalpostsavatars'], 'hide' ); ?> ><?php _e('Hide', 'rgpwidget'); ?></option>
 	                </select>
 	                </label>
+
 					<label for="<?php echo $this->get_field_name( 'recentglobalpostsavatarsize' ); ?>" style="line-height:35px;display:block;"><?php _e('Avatar Size', 'rgpwidget'); ?>:<br />
 	                <select name="<?php echo $this->get_field_name( 'recentglobalpostsavatarsize' ); ?>" id="<?php echo $this->get_field_id( 'recentglobalpostsavatarsize' ); ?>" style="width:95%;">
 	                <option value="16" <?php selected( $instance['recentglobalpostsavatarsize'], '16'); ?> ><?php _e('16px', 'rgpwidget'); ?></option>
@@ -289,9 +245,44 @@ class widget_recent_global_posts extends WP_Widget {
 	                <option value="128" <?php selected( $instance['recentglobalpostsavatarsize'], '128'); ?> ><?php _e('128px', 'rgpwidget'); ?></option>
 	                </select>
 	                </label>
+
+					<?php
+						$post_types = $this->get_post_types();
+
+					?>
+
+					<label for="<?php echo $this->get_field_name( 'recentglobalpoststype' ); ?>" style="line-height:35px;display:block;"><?php _e('Post Type', 'rgpwidget'); ?>:<br />
+	                <select name="<?php echo $this->get_field_name( 'recentglobalpoststype' ); ?>" id="<?php echo $this->get_field_id( 'recentglobalpoststype' ); ?>" style="width:95%;">
+	                <?php
+							if(!empty($post_types)) {
+								foreach( $post_types as $r ) {
+									?>
+									<option value="<?php echo $r; ?>" <?php selected( $instance['recentglobalpoststype'], $r ); ?> ><?php _e($r, 'rgpwidget'); ?></option>
+									<?php
+								}
+							} else {
+								?>
+								<option value="post" <?php selected( $instance['recentglobalpoststype'], 'post' ); ?> ><?php _e('post', 'rgpwidget'); ?></option>
+								<?php
+							}
+					?>
+	                </select>
+	                </label>
+
+
 					<input type="hidden" name="<?php echo $this->get_field_name( 'recentglobalpostssubmit' ); ?>" id="<?php echo $this->get_field_id( 'recentglobalpostssubmit' ); ?>" value="1" />
 					</div>
 		<?php
+	}
+
+	function get_post_types() {
+		global $wpdb;
+
+		$sql = $wpdb->prepare( "SELECT post_type FROM " . $wpdb->base_prefix . "site_posts GROUP BY post_type" );
+
+		$results = $wpdb->get_col( $sql );
+
+		return $results;
 	}
 }
 
