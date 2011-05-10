@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Recent Posts Widget
+Plugin Name: Recent Global Posts Widget
 Description:
 Author: Andrew Billits (Incsub)
 Version: 2.1
@@ -57,6 +57,7 @@ class widget_recent_global_posts extends WP_Widget {
 		$widget_ops = array( 'classname' => 'rgpwidget', 'description' => __('Recent Global Posts', 'rgpwidget') );
 		$control_ops = array('width' => 400, 'height' => 350, 'id_base' => 'rgpwidget');
 		$this->WP_Widget( 'rgpwidget', __('Recent Global Posts', 'rgpwidget'), $widget_ops, $control_ops );
+
 	}
 
 	function widget( $args, $instance ) {
@@ -172,41 +173,24 @@ class widget_recent_global_posts extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 
-		global $wpdb;
-		$options = $newoptions = get_option('widget_recent_global_posts');
-		if ( $_POST['recent-global-posts-submit'] ) {
-			$newoptions['recent-global-posts-title'] = $_POST['recent-global-posts-title'];
-			$newoptions['recent-global-posts-display'] = $_POST['recent-global-posts-display'];
-			$newoptions['recent-global-posts-number'] = $_POST['recent-global-posts-number'];
-			$newoptions['recent-global-posts-title-characters'] = $_POST['recent-global-posts-title-characters'];
-			$newoptions['recent-global-posts-content-characters'] = $_POST['recent-global-posts-content-characters'];
-			$newoptions['recent-global-posts-avatars'] = $_POST['recent-global-posts-avatars'];
-			$newoptions['recent-global-posts-avatar-size'] = $_POST['recent-global-posts-avatar-size'];
-		}
-		if ( $options != $newoptions ) {
-			$options = $newoptions;
-			update_option('widget_recent_global_posts', $options);
-		}
-
-
-
-		$instance = $old_instance;
-
-		$defaults = array(
-			'title' 		=> '',
-			'content' 		=> '',
-			'level'		 	=> 'none'
-		);
+		$defaults = array(	'recentglobalpoststitle' => '',
+							'recentglobalpostsdisplay'	=>	'',
+							'recentglobalpostsnumber'	=>	'',
+							'recentglobalpoststitlecharacters'	=>	'',
+							'recentglobalpostscontentcharacters'	=>	'',
+							'recentglobalpostsavatars'	=>	'',
+							'recentglobalpostsavatarsize'	=>	'',
+							'count' => 10,
+							'username' => 'wordpress',
+							'post_type' => 'post'
+						);
 
 		foreach ( $defaults as $key => $val ) {
 			$instance[$key] = $new_instance[$key];
 		}
 
-		if ( !current_user_can('unfiltered_html') ) {
-			$instance['content'] = stripslashes( wp_filter_post_kses( addslashes($instance['content']) ) ); // wp_filter_post_kses() expects slashed
-		}
-
 		return $instance;
+
 	}
 
 	function form( $instance ) {
@@ -312,6 +296,8 @@ class widget_recent_global_posts extends WP_Widget {
 }
 
 function widget_recent_global_posts_register() {
+	global $recent_global_posts_widget_main_blog_only, $wpdb;
+
 	if ( $recent_global_posts_widget_main_blog_only == 'yes' ) {
 		if ( $wpdb->blogid == 1 ) {
 			register_widget( 'widget_recent_global_posts' );
