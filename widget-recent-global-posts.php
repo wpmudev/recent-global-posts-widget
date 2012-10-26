@@ -46,6 +46,7 @@ class widget_recent_global_posts extends WP_Widget {
 	function widget( $args, $instance ) {
 
 		global $wpdb, $current_site;
+		global $network_query, $network_post;
 
 		extract($args);
 
@@ -76,32 +77,38 @@ class widget_recent_global_posts extends WP_Widget {
 			<?php echo $before_title . __($title) . $after_title; ?>
             <br />
             <?php
-				//=================================================//
-				$query = "SELECT * FROM " . $wpdb->base_prefix . "site_posts WHERE blog_public = '1' AND post_type ='" . $recentglobalpoststype . "' ORDER BY post_published_stamp DESC LIMIT " . $recentglobalpostsnumber;
-				$posts = $wpdb->get_results( $query, ARRAY_A );
-				if (count($posts) > 0){
+
+				$network_query = network_query_posts( array( 'post_type' => $recentglobalpoststype, 'posts_per_page' => $recentglobalpostsnumber ));
+
+				if( network_have_posts() ) {
 					echo '<ul>';
-					foreach ($posts as $post){
+					while( network_have_posts()) {
+						network_the_post();
 						echo '<li>';
+
+						$the_permalink = network_get_permalink();
+						$the_title = network_get_the_title();
+						$the_content = network_get_the_content();
+
 						if ( $recentglobalpostsavatars == 'show' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . get_avatar( $post['post_author'], $recentglobalpostsavatarsize, '' ) . '</a>';
+							echo '<a href="' . $the_permalink . '">' . get_avatar( network_get_the_author_id(), $recentglobalpostsavatarsize, '' ) . '</a>';
 							echo ' ';
 						}
 						if ( $recentglobalpostsdisplay == 'title_content' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $recentglobalpoststitlecharacters ) . '</a>';
+							echo '<a href="' . $the_permalink . '">' . substr( $the_title, 0, $recentglobalpoststitlecharacters ) . '</a>';
 							echo '<br />';
-							echo substr( strip_tags( $post['post_content'] ), 0, $recentglobalpostscontentcharacters );
+							echo substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
 						} else if ( $recentglobalpostsdisplay == 'title' ) {
-							echo '<a href="' . $post['post_permalink'] . '">' . substr( $post['post_title'], 0, $recentglobalpoststitlecharacters ) . '</a>';
+							echo '<a href="' . $the_permalink . '">' . substr( $the_title, 0, $recentglobalpoststitlecharacters ) . '</a>';
 						} else if ( $recentglobalpostsdisplay == 'content' ) {
-							echo substr( strip_tags( $post['post_content'] ), 0, $recentglobalpostscontentcharacters );
-							echo ' (<a href="' . $post['post_permalink'] . '">' . __('More') . '</a>)';
+							echo substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
+							echo ' (<a href="' . $the_permalink . '">' . __('More') . '</a>)';
 						}
 						echo '</li>';
 					}
 					echo '</ul>';
 				}
-				//=================================================//
+
 			?>
 		<?php echo $after_widget;
 
