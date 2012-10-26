@@ -2,14 +2,14 @@
 /*
 Plugin Name: Recent Global Posts Widget
 Description:
-Author: Andrew Billits (Incsub)
-Version: 2.1
+Author: Barry (Incsub)
+Version: 3.0
 Author URI:
 WDP ID: 66
 */
 
 /*
-Copyright 2007-2009 Incsub (http://incsub.com)
+Copyright 2012 Incsub (http://incsub.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
@@ -25,24 +25,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* -------------------- Update Notifications Notice -------------------- */
-if ( !function_exists( 'wdp_un_check' ) ) {
-  add_action( 'admin_notices', 'wdp_un_check', 5 );
-  add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-  function wdp_un_check() {
-    if ( !class_exists( 'WPMUDEV_Update_Notifications' ) && current_user_can( 'edit_users' ) )
-      echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-  }
-}
-/* --------------------------------------------------------------------- */
-
-//------------------------------------------------------------------------//
-//---Config---------------------------------------------------------------//
-//------------------------------------------------------------------------//
-$recent_global_posts_widget_main_blog_only = 'yes'; //Either 'yes' or 'no'
-//------------------------------------------------------------------------//
-//---Hook-----------------------------------------------------------------//
-//------------------------------------------------------------------------//
+if(!defined('RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY') ) define('RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY', true);
 
 class widget_recent_global_posts extends WP_Widget {
 
@@ -278,7 +261,7 @@ class widget_recent_global_posts extends WP_Widget {
 	function get_post_types() {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "SELECT post_type FROM " . $wpdb->base_prefix . "site_posts GROUP BY post_type" );
+		$sql = $wpdb->prepare( "SELECT post_type FROM " . $wpdb->base_prefix . "network_posts GROUP BY post_type" );
 
 		$results = $wpdb->get_col( $sql );
 
@@ -287,9 +270,9 @@ class widget_recent_global_posts extends WP_Widget {
 }
 
 function widget_recent_global_posts_register() {
-	global $recent_global_posts_widget_main_blog_only, $wpdb;
+	global $wpdb;
 
-	if ( $recent_global_posts_widget_main_blog_only == 'yes' ) {
+	if ( RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY == 'yes' ) {
 		if ( $wpdb->blogid == 1 ) {
 			register_widget( 'widget_recent_global_posts' );
 		}
