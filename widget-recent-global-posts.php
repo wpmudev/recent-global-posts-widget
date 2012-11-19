@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Recent Global Posts Widget
-Description:
+Description: Show the most recent global posts in a widget
 Author: Barry (Incsub)
-Version: 3.0
+Version: 3.0 RC 1
 Author URI:
 WDP ID: 66
 */
