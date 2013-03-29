@@ -3,7 +3,7 @@
 Plugin Name: Recent Global Posts Widget
 Description: Show the most recent global posts in a widget
 Author: Barry (Incsub)
-Version: 3.0
+Version: 3.0.1
 Author URI:
 WDP ID: 66
 */
@@ -77,7 +77,6 @@ class widget_recent_global_posts extends WP_Widget {
 			<?php echo $before_title . __($title) . $after_title; ?>
             <br />
             <?php
-
 				$network_query = network_query_posts( array( 'post_type' => $recentglobalpoststype, 'posts_per_page' => $recentglobalpostsnumber ));
 
 				if( network_have_posts() ) {
@@ -268,7 +267,7 @@ class widget_recent_global_posts extends WP_Widget {
 	function get_post_types() {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "SELECT post_type FROM " . $wpdb->base_prefix . "network_posts GROUP BY post_type" );
+		$sql = "SELECT post_type FROM " . $wpdb->base_prefix . "network_posts GROUP BY post_type";
 
 		$results = $wpdb->get_col( $sql );
 
