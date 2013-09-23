@@ -5,7 +5,7 @@ Plugin URI: http://premium.wpmudev.org/project/recent-global-posts-widget/
 Description: Show the most recent global posts in a widget
 Author: Incsub
 Author URI: http://premium.wpmudev.org/
-Version: 3.0.1
+Version: 3.0.2
 WDP ID: 66
 */
 
@@ -268,7 +268,7 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 				<?php endif; ?>
 			</select>
 		</p>
-		
+
 		<input type="hidden" name="<?php echo $this->get_field_name( 'recentglobalpostssubmit' ) ?>" value="1"><?php
 	}
 
