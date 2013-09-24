@@ -155,7 +155,8 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 							echo '<a href="', $the_permalink, '">', get_avatar( network_get_the_author_id(), $recentglobalpostsavatarsize, '' ), '</a> ';
 						endif;
 
-						$blog_title = get_blog_details( $post->BLOG_ID )->blogname;
+						$blog = get_blog_details( $post->BLOG_ID );
+						$blog_title = $blog ? $blog->blogname : '';
 						$title = substr( $the_title, 0, $recentglobalpoststitlecharacters );
 						$content = substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
 						switch ( $recentglobalpostsdisplay ) {
