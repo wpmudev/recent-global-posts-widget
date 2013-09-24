@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Recent Global Posts Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-23 14:39+0300\n"
-"PO-Revision-Date: 2013-09-23 14:40+0300\n"
+"POT-Creation-Date: 2013-09-24 16:31+0300\n"
+"PO-Revision-Date: 2013-09-24 16:31+0300\n"
 "Last-Translator: Eugene Manuilov <eugene@manuilov.org>\n"
 "Language-Team: Incsub <team@incsub.com>\n"
 "Language: en_US\n"
@@ -17,67 +17,79 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ./..\n"
 
-#: ../widget-recent-global-posts.php:91 ../widget-recent-global-posts.php:98
-#: ../widget-recent-global-posts.php:121
+#: ../widget-recent-global-posts.php:98 ../widget-recent-global-posts.php:105
+#: ../widget-recent-global-posts.php:128
 msgid "Recent Global Posts"
 msgstr "Recent Global Posts"
 
-#: ../widget-recent-global-posts.php:158
+#: ../widget-recent-global-posts.php:166 ../widget-recent-global-posts.php:170
 msgid "Read More"
 msgstr "Read More"
 
-#: ../widget-recent-global-posts.php:200
+#: ../widget-recent-global-posts.php:218
+msgid "Title and content"
+msgstr "Title and content"
+
+#: ../widget-recent-global-posts.php:219
+msgid "Title, blog name and content"
+msgstr "Title, blog name and content"
+
+#: ../widget-recent-global-posts.php:220
+msgid "Title only"
+msgstr "Title only"
+
+#: ../widget-recent-global-posts.php:221
+msgid "Title and blog name"
+msgstr "Title and blog name"
+
+#: ../widget-recent-global-posts.php:222
+msgid "Content only"
+msgstr "Content only"
+
+#: ../widget-recent-global-posts.php:223
+msgid "Blog name and content"
+msgstr "Blog name and content"
+
+#: ../widget-recent-global-posts.php:239
 msgid "Title"
 msgstr "Title"
 
-#: ../widget-recent-global-posts.php:205
+#: ../widget-recent-global-posts.php:244
 msgid "Display"
 msgstr "Display"
 
-#: ../widget-recent-global-posts.php:207
-msgid "Title + Content"
-msgstr "Title + Content"
-
-#: ../widget-recent-global-posts.php:208
-msgid "Title Only"
-msgstr "Title Only"
-
-#: ../widget-recent-global-posts.php:209
-msgid "Content Only"
-msgstr "Content Only"
-
-#: ../widget-recent-global-posts.php:214
+#: ../widget-recent-global-posts.php:253
 msgid "Number"
 msgstr "Number"
 
-#: ../widget-recent-global-posts.php:223
+#: ../widget-recent-global-posts.php:262
 msgid "Title Characters"
 msgstr "Title Characters"
 
-#: ../widget-recent-global-posts.php:232
+#: ../widget-recent-global-posts.php:271
 msgid "Content Characters"
 msgstr "Content Characters"
 
-#: ../widget-recent-global-posts.php:241
+#: ../widget-recent-global-posts.php:280
 msgid "Avatars"
 msgstr "Avatars"
 
-#: ../widget-recent-global-posts.php:243
+#: ../widget-recent-global-posts.php:282
 msgid "Show"
 msgstr "Show"
 
-#: ../widget-recent-global-posts.php:244
+#: ../widget-recent-global-posts.php:283
 msgid "Hide"
 msgstr "Hide"
 
-#: ../widget-recent-global-posts.php:249
+#: ../widget-recent-global-posts.php:288
 msgid "Avatar Size"
 msgstr "Avatar Size"
 
-#: ../widget-recent-global-posts.php:260
+#: ../widget-recent-global-posts.php:299
 msgid "Post Type"
 msgstr "Post Type"
 
-#: ../widget-recent-global-posts.php:267
+#: ../widget-recent-global-posts.php:306
 msgid "post"
 msgstr "post"
