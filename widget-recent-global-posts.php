@@ -76,6 +76,13 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 
 	const NAME = __CLASS__;
 
+	const DISPLAY_TITLE_CONTENT      = 'title_content';
+	const DISPLAY_TITLE_BLOG_CONTENT = 'title_blog_content';
+	const DISPLAY_TITLE              = 'title';
+	const DISPLAY_TITLE_BLOG         = 'title_blog';
+	const DISPLAY_CONTENT            = 'content';
+	const DISPLAY_BLOG_CONTENT       = 'blog_content';
+
 	/**
 	 * Constructor.
 	 *
@@ -139,6 +146,7 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 				while ( network_have_posts() ) :
 					network_the_post();
 					echo '<li>';
+						$post = network_get_post();
 						$the_permalink = network_get_permalink();
 						$the_title = network_get_the_title();
 						$the_content = network_get_the_content();
@@ -147,16 +155,38 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 							echo '<a href="', $the_permalink, '">', get_avatar( network_get_the_author_id(), $recentglobalpostsavatarsize, '' ), '</a> ';
 						endif;
 
-						if ( $recentglobalpostsdisplay == 'title_content' ) :
-							echo '<a href="', $the_permalink, '">', substr( $the_title, 0, $recentglobalpoststitlecharacters ), '</a>';
-							echo '<br>';
-							echo substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
-						elseif ( $recentglobalpostsdisplay == 'title' ) :
-							echo '<a href="', $the_permalink, '">', substr( $the_title, 0, $recentglobalpoststitlecharacters ), '</a>';
-						elseif ( $recentglobalpostsdisplay == 'content' ) :
-							echo substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters ), '&hellip;';
-							echo '<br><a href="', $the_permalink, '">', __( 'Read More', 'rgpwidget' ), ' &raquo;</a>';
-						endif;
+						$blog_title = get_blog_details( $post->BLOG_ID )->blogname;
+						$title = substr( $the_title, 0, $recentglobalpoststitlecharacters );
+						$content = substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
+						switch ( $recentglobalpostsdisplay ) {
+							case self::DISPLAY_BLOG_CONTENT:
+								echo '<a href="', $the_permalink, '">', '[', $blog_title, ']</a>';
+								echo '<br>';
+								echo $content, $recentglobalpostscontentcharacters < strlen( $the_content ) ? '&hellip;' : '';
+								echo '<br><a href="', $the_permalink, '">', __( 'Read More', 'rgpwidget' ), ' &raquo;</a>';
+								break;
+							case self::DISPLAY_CONTENT:
+								echo $content, $recentglobalpostscontentcharacters < strlen( $the_content ) ? '&hellip;' : '';
+								echo '<br><a href="', $the_permalink, '">', __( 'Read More', 'rgpwidget' ), ' &raquo;</a>';
+								break;
+							case self::DISPLAY_TITLE:
+								echo '<a href="', $the_permalink, '">', $title, '</a>';
+								break;
+							case self::DISPLAY_TITLE_BLOG:
+								echo '<a href="', $the_permalink, '">', $title, ' [', $blog_title, ']</a>';
+								break;
+							case self::DISPLAY_TITLE_BLOG_CONTENT:
+								echo '<a href="', $the_permalink, '">', $title, ' [', $blog_title, ']</a>';
+								echo '<br>';
+								echo $content;
+								break;
+							case self::DISPLAY_TITLE_CONTENT:
+							default:
+								echo '<a href="', $the_permalink, '">', $title, '</a>';
+								echo '<br>';
+								echo $content;
+								break;
+						}
 					echo '</li>';
 				endwhile;
 				echo '</ul>';
@@ -184,6 +214,15 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 			'post_type'                          => 'post'
 		) );
 
+		$displays = array(
+			self::DISPLAY_TITLE_CONTENT      => __( 'Title and content', 'rgpwidget' ),
+			self::DISPLAY_TITLE_BLOG_CONTENT => __( 'Title, blog name and content', 'rgpwidget' ),
+			self::DISPLAY_TITLE              => __( 'Title only', 'rgpwidget' ),
+			self::DISPLAY_TITLE_BLOG         => __( 'Title and blog name', 'rgpwidget' ),
+			self::DISPLAY_CONTENT            => __( 'Content only', 'rgpwidget' ),
+			self::DISPLAY_BLOG_CONTENT       => __( 'Blog name and content', 'rgpwidget' ),
+		);
+
 		if ( !absint( $instance['recentglobalpostsnumber'] ) ) {
 			$instance['recentglobalpostsnumber'] = 5;
 		}
@@ -204,9 +243,9 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'recentglobalpostsdisplay' ) ?>"><?php _e( 'Display', 'rgpwidget' ) ?>:</label>
 			<select id="<?php echo $this->get_field_id( 'recentglobalpostsdisplay' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'recentglobalpostsdisplay' ) ?>">
-				<option value="title_content"<?php selected( $instance['recentglobalpostsdisplay'], 'title_content' ) ?>><?php _e( 'Title + Content', 'rgpwidget' ) ?></option>
-				<option value="title"<?php selected( $instance['recentglobalpostsdisplay'], 'title' ) ?>><?php _e( 'Title Only', 'rgpwidget' ) ?></option>
-				<option value="content"<?php selected( $instance['recentglobalpostsdisplay'], 'content' ) ?>><?php _e( 'Content Only', 'rgpwidget' ) ?></option>
+				<?php foreach ( $displays as $key => $label ) : ?>
+				<option value="<?php echo $key ?>"<?php selected( $key, $instance['recentglobalpostsdisplay'] ) ?>><?php echo $label ?></option>
+				<?php endforeach; ?>
 			</select>
 		</p>
 
