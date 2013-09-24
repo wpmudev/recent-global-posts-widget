@@ -118,7 +118,7 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 			'recentglobalpostsavatarsize'        => '',
 		), $instance ) );
 
-		$title = !empty( $instance['title'] ) ? $instance['title'] : __( 'Recent Global Posts' );
+		$title = !empty( $instance['recentglobalpoststitle'] ) ? $instance['recentglobalpoststitle'] : __( 'Recent Global Posts' );
 		$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 		$recentglobalpoststype = !empty( $instance['recentglobalpoststype'] ) ? $instance['recentglobalpoststype'] : 'post';
