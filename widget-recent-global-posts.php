@@ -69,6 +69,24 @@ if ( !function_exists( 'rgpwidget_load_text_domain' ) ) :
 	}
 endif;
 
+add_filter( 'network_posts_where', 'rgpwidget_exclude_blogs', 10, 2 );
+if ( !function_exists( 'rgpwidget_exclude_blogs' ) ) :
+	/**
+	 * Excludes blogs from network query.
+	 *
+	 * @since 3.0.4
+	 *
+	 * @param string $where Initial WHERE clause of the network query.
+	 * @param Network_Query $query The network query object.
+	 * @return string Updated WHERE clause.
+	 */
+	function rgpwidget_exclude_blogs( $where, Network_Query $query ) {
+		return isset( $query->query_vars['blogs_not_in'] )
+			? $where . sprintf( ' AND %s.BLOG_ID NOT IN (%s) ', $query->network_posts, implode( ', ', (array)$query->query_vars['blogs_not_in'] ) )
+			: $where;
+	}
+endif;
+
 /**
  * Recent Global Posts Widget class.
  */
@@ -96,13 +114,13 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 		$widget_options = array_merge( array(
 			'classname'   => 'rgpwidget',
 			'description' => __( 'Recent Global Posts', 'rgpwidget' ),
-		), $widget_options );
+			), $widget_options );
 
 		$control_options = array_merge( array(
 			'id_base' => 'rgpwidget',
-		), $control_options );
+			), $control_options );
 
-		parent::__construct( 'rgpwidget', __('Recent Global Posts', 'rgpwidget'), $widget_options, $control_options );
+		parent::__construct( 'rgpwidget', __( 'Recent Global Posts', 'rgpwidget' ), $widget_options, $control_options );
 	}
 
 	/**
@@ -123,6 +141,7 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 			'recentglobalpostscontentcharacters' => '',
 			'recentglobalpostsavatars'           => '',
 			'recentglobalpostsavatarsize'        => '',
+			'exclude_blogs'                      => '',
 		), $instance ) );
 
 		$title = !empty( $instance['recentglobalpoststitle'] ) ? $instance['recentglobalpoststitle'] : __( 'Recent Global Posts' );
@@ -134,9 +153,12 @@ class Recent_Global_Posts_Widget extends WP_Widget {
  			$recentglobalpostsnumber = 10;
 		}
 
+		$exclude_blogs = array_filter( array_map( 'intval', explode( ',', $exclude_blogs ) ) );
+
 		$network_query = network_query_posts( array(
 			'post_type'      => $recentglobalpoststype,
 			'posts_per_page' => $recentglobalpostsnumber,
+			'blogs_not_in'   => $exclude_blogs,
 		) );
 
 		echo $args['before_widget'];
@@ -212,7 +234,8 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 			'recentglobalpostsavatars'           => '',
 			'recentglobalpostsavatarsize'        => '',
 			'recentglobalpoststype'              => 'post',
-			'post_type'                          => 'post'
+			'post_type'                          => 'post',
+			'exclude_blogs'                      => '',
 		) );
 
 		$displays = array(
@@ -307,6 +330,12 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 					<option value="post"<?php selected( $instance['recentglobalpoststype'], 'post' ) ?>><?php _e( 'post' ) ?></option>
 				<?php endif; ?>
 			</select>
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'exclude_blogs' ) ?>"><?php _e( 'Exclude Blogs', 'rgpwidget' ) ?>:</label>
+			<input type="text" id="<?php echo $this->get_field_id( 'exclude_blogs' ) ?>" class="widefat" name="<?php echo $this->get_field_name( 'exclude_blogs' ); ?>" value="<?php echo esc_attr( $instance['exclude_blogs'] ) ?>"><br>
+			<small><?php esc_html_e( 'Blog IDs, separated by commas.', 'rgpwidget' ) ?></small>
 		</p>
 
 		<input type="hidden" name="<?php echo $this->get_field_name( 'recentglobalpostssubmit' ) ?>" value="1"><?php
