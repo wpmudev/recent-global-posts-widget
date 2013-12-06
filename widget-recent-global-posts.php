@@ -5,7 +5,7 @@ Plugin URI: http://premium.wpmudev.org/project/recent-global-posts-widget/
 Description: Show the most recent global posts in a widget
 Author: Incsub
 Author URI: http://premium.wpmudev.org/
-Version: 3.0.4
+Version: 3.0.5
 WDP ID: 66
 */
 
@@ -81,7 +81,7 @@ if ( !function_exists( 'rgpwidget_exclude_blogs' ) ) :
 	 * @return string Updated WHERE clause.
 	 */
 	function rgpwidget_exclude_blogs( $where, Network_Query $query ) {
-		return isset( $query->query_vars['blogs_not_in'] )
+		return !empty( $query->query_vars['blogs_not_in'] )
 			? $where . sprintf( ' AND %s.BLOG_ID NOT IN (%s) ', $query->network_posts, implode( ', ', (array)$query->query_vars['blogs_not_in'] ) )
 			: $where;
 	}
