@@ -47,7 +47,7 @@ if ( !function_exists( 'rgpwidget_register_widget' ) ) :
 			return;
 		}
 
-		if ( RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY == 'yes' ) {
+		if ( filter_var( RECENT_GLOBAL_POSTS_WIDGET_MAIN_BLOG_ONLY, FILTER_VALIDATE_BOOLEAN ) ) {
 			if ( $wpdb->blogid == 1 ) {
 				register_widget( Recent_Global_Posts_Widget::NAME );
 			}
@@ -134,6 +134,7 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $network_query;
 
+		$substr = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
 		extract( array_merge( array(
 			'recentglobalpostsdisplay'           => '',
 			'recentglobalpostsnumber'            => '',
@@ -179,8 +180,8 @@ class Recent_Global_Posts_Widget extends WP_Widget {
 
 						$blog = get_blog_details( $post->BLOG_ID );
 						$blog_title = $blog ? $blog->blogname : '';
-						$title = substr( $the_title, 0, $recentglobalpoststitlecharacters );
-						$content = substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
+						$title = $substr( $the_title, 0, $recentglobalpoststitlecharacters );
+						$content = $substr( strip_tags( $the_content ), 0, $recentglobalpostscontentcharacters );
 						switch ( $recentglobalpostsdisplay ) {
 							case self::DISPLAY_BLOG_CONTENT:
 								echo '<a href="', $the_permalink, '">', '[', $blog_title, ']</a>';

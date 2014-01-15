@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Recent Global Posts Widget\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 17:29+0300\n"
-"PO-Revision-Date: 2013-12-05 17:30+0300\n"
+"POT-Creation-Date: 2014-01-15 16:44+0300\n"
+"PO-Revision-Date: 2014-01-15 16:44+0300\n"
 "Last-Translator: Eugene Manuilov <eugene@manuilov.org>\n"
 "Language-Team: Incsub <team@incsub.com>\n"
 "Language: en_US\n"
@@ -11,93 +11,96 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-KeywordsList: esc_html__;esc_html_e;esc_attr__;__;_e;esc_attr_e;_n\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop;_nc;_nx;_nx_noop\n"
 "X-Poedit-Basepath: .\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ./..\n"
 
 #: ../widget-recent-global-posts.php:116 ../widget-recent-global-posts.php:123
-#: ../widget-recent-global-posts.php:147
+#: ../widget-recent-global-posts.php:148
 msgid "Recent Global Posts"
 msgstr "Recent Global Posts"
 
-#: ../widget-recent-global-posts.php:189 ../widget-recent-global-posts.php:193
+#: ../widget-recent-global-posts.php:190 ../widget-recent-global-posts.php:194
 msgid "Read More"
 msgstr "Read More"
 
-#: ../widget-recent-global-posts.php:242
+#: ../widget-recent-global-posts.php:243
 msgid "Title and content"
 msgstr "Title and content"
 
-#: ../widget-recent-global-posts.php:243
+#: ../widget-recent-global-posts.php:244
 msgid "Title, blog name and content"
 msgstr "Title, blog name and content"
 
-#: ../widget-recent-global-posts.php:244
+#: ../widget-recent-global-posts.php:245
 msgid "Title only"
 msgstr "Title only"
 
-#: ../widget-recent-global-posts.php:245
+#: ../widget-recent-global-posts.php:246
 msgid "Title and blog name"
 msgstr "Title and blog name"
 
-#: ../widget-recent-global-posts.php:246
+#: ../widget-recent-global-posts.php:247
 msgid "Content only"
 msgstr "Content only"
 
-#: ../widget-recent-global-posts.php:247
+#: ../widget-recent-global-posts.php:248
 msgid "Blog name and content"
 msgstr "Blog name and content"
 
-#: ../widget-recent-global-posts.php:263
+#: ../widget-recent-global-posts.php:264
 msgid "Title"
 msgstr "Title"
 
-#: ../widget-recent-global-posts.php:268
+#: ../widget-recent-global-posts.php:269
 msgid "Display"
 msgstr "Display"
 
-#: ../widget-recent-global-posts.php:277
+#: ../widget-recent-global-posts.php:278
 msgid "Number"
 msgstr "Number"
 
-#: ../widget-recent-global-posts.php:286
+#: ../widget-recent-global-posts.php:287
 msgid "Title Characters"
 msgstr "Title Characters"
 
-#: ../widget-recent-global-posts.php:295
+#: ../widget-recent-global-posts.php:296
 msgid "Content Characters"
 msgstr "Content Characters"
 
-#: ../widget-recent-global-posts.php:304
+#: ../widget-recent-global-posts.php:305
 msgid "Avatars"
 msgstr "Avatars"
 
-#: ../widget-recent-global-posts.php:306
+#: ../widget-recent-global-posts.php:307
 msgid "Show"
 msgstr "Show"
 
-#: ../widget-recent-global-posts.php:307
+#: ../widget-recent-global-posts.php:308
 msgid "Hide"
 msgstr "Hide"
 
-#: ../widget-recent-global-posts.php:312
+#: ../widget-recent-global-posts.php:313
 msgid "Avatar Size"
 msgstr "Avatar Size"
 
-#: ../widget-recent-global-posts.php:323
+#: ../widget-recent-global-posts.php:324
 msgid "Post Type"
 msgstr "Post Type"
 
-#: ../widget-recent-global-posts.php:330
+#: ../widget-recent-global-posts.php:331
 msgid "post"
 msgstr "post"
 
-#: ../widget-recent-global-posts.php:336
+#: ../widget-recent-global-posts.php:337
 msgid "Exclude Blogs"
 msgstr "Exclude Blogs"
 
-#: ../widget-recent-global-posts.php:338
+#: ../widget-recent-global-posts.php:339
 msgid "Blog IDs, separated by commas."
 msgstr "Blog IDs, separated by commas."
